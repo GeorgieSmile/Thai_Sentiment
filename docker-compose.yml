@@ -1,0 +1,16 @@
+services:
+  api:
+    build:
+      context: ./Thai_Sentiment_API
+    ports:
+      - "8000:8000"
+    restart: unless-stopped
+
+  frontend:
+    build:
+      context: ./Thai_Sentiment_FrontEnd
+    ports:
+      - "8080:80"
+    restart: unless-stopped
+    depends_on:
+      - api
