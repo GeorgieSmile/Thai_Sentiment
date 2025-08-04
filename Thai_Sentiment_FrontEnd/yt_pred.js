@@ -1,3 +1,4 @@
+// Get DOM Element
 const ytForm = document.getElementById('yt-form');
 const ytInput = document.getElementById('yt-url');
 const summaryDiv = document.getElementById('file-result-summary');
@@ -16,10 +17,12 @@ const exportCVSBtn = document.getElementById('export-csv-btn');
 const loadingIndicator = document.getElementById('loading-indicator');
 const submitBtn = ytForm.querySelector('button[type="submit"]');
 
+// Global Variable
 let originalData = [];
 let sentimentChartInstance;
 let confidenceChartInstance;
 
+// Add event listener for form submission
 ytForm.addEventListener('submit', async (event) => {
     event.preventDefault();
     hideAllResults();
@@ -58,6 +61,7 @@ ytForm.addEventListener('submit', async (event) => {
     }
 });
 
+// Filter event listener
 sentimentFilter.addEventListener('change', renderTable);
 keywordFilter.addEventListener('input', renderTable);
 confidenceFilter.addEventListener('input', () => {
@@ -65,11 +69,13 @@ confidenceFilter.addEventListener('input', () => {
   renderTable();
 });
 
+// Resize handler
 window.addEventListener('resize', () => {
   if (sentimentChartInstance) sentimentChartInstance.resize();
   if (confidenceChartInstance) confidenceChartInstance.resize();
 });
 
+// Export Chart 
 exportChartBtn.addEventListener('click', () => {
     const pieURL = document.getElementById('sentimentChart').toDataURL("image/png");
     const barURL = document.getElementById('confidenceChart').toDataURL("image/png");
@@ -90,6 +96,7 @@ exportChartBtn.addEventListener('click', () => {
 
 })
 
+// Export Table
 exportCVSBtn.addEventListener('click', () =>{
     const rows = [["ข้อความ", "อารมณ์", "ความมั่นใจ"]];
     const sentiment = sentimentFilter.value;
@@ -107,11 +114,13 @@ exportCVSBtn.addEventListener('click', () =>{
         return sentimentMatch && keywordMatch && confidenceMatch;
     });
 
+    // Add row to CSV
     filteredData.forEach(item => {
         const prob = item.probabilities.find(p => p.label === item.sentiment);
         rows.push([item.text, item.sentiment, (prob.probability * 100).toFixed(1) + '%']);
     });
 
+    //Create file and trigger download
     const csvContent = "data:text/cvs;charset=utf-8," + rows.map(e => e.join(",")).join("\n");
     const link = document.createElement("a");
     link.setAttribute("href",encodeURI(csvContent));
@@ -120,6 +129,8 @@ exportCVSBtn.addEventListener('click', () =>{
     link.click();
     document.body.removeChild(link);
 });
+
+// UI Function
 
 function hideAllResults() {
   summaryDiv.classList.add('hidden');
@@ -244,6 +255,7 @@ function renderTable() {
     const keyword = keywordFilter.value.trim();
     const minConfidence = Number(confidenceFilter.value)
 
+    // Filter data part
     const filteredData = originalData.filter(item => {
         const probObj = item.probabilities.find(p => p.label === item.sentiment);
         const confidence = probObj ? probObj.probability * 100 : 0;

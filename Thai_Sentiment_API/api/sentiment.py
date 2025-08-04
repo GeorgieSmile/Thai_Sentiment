@@ -7,28 +7,38 @@ import pandas as pd
 import io
 
 router = APIRouter()
+
+# Pydantic Models 
+
+# Single text request
 class SentimentRequest(BaseModel):
     text: str
 
+# Probability structure for each sentiment label
 class Probabilities(BaseModel):
     label: str
     probability: float
 
+# Full response for a single text
 class SentimentResponse(BaseModel):
     text: str
     sentiment: str
     probabilities: list[Probabilities]
     summary: str
 
+# Request body for multiple texts
 class MultipleSentimentRequest(BaseModel):
     texts: list[str]
 
+# Response for multiple texts
 class MultipleSentimentResponse(BaseModel):
     result: list[SentimentResponse]
 
+# YouTube comment sentiment request
 class YouTubeRequest(BaseModel):
     url: str
 
+# Utility Function
 async def extract_text_from_file(file: UploadFile):
     """
     Extract text from a file.
@@ -63,17 +73,27 @@ async def extract_text_from_file(file: UploadFile):
     
     return texts
 
+#API Endpoints
+
 @router.post("/predict")
 def predict(request: SentimentRequest):
+    """
+    Predict sentiment of a single text input.
+    """
+
     if not request.text.strip():
         raise HTTPException(status_code=400, detail="ไม่สามารถวิเคราะห์ข้อความว่างเปล่าได้")
     if len(request.text) > 400:
         raise HTTPException(status_code=400, 
                             detail=f"ข้อความยาวเกินไป ({len(request.text)} ตัวอักษร). ความยาวสูงสุดคือ 400 ตัวอักษร.")
+    
+    # Run prediction
     sentiment_idx, probabilities = predict_sentiment(request.text)
     labels = ["เชิงลบ 😡", "เป็นกลาง 😐", "เชิงบวก 😄"]
     sentiment = labels[sentiment_idx]
     confidence = round(max(probabilities[0]) * 100, 2)
+
+    # Create probabity object
     prob_object = []
     for i in range(len(probabilities[0])):
         label = labels[i]
@@ -84,6 +104,9 @@ def predict(request: SentimentRequest):
 
 @router.post("/predict_multiple")
 def predict_multiple(request: MultipleSentimentRequest):
+    """
+    Predict sentiment for a list of text inputs (max 250).
+    """
     texts_to_process = request.texts[:250]
     if not texts_to_process:
         raise HTTPException(status_code=400, detail="ไม่สามารถวิเคราะห์ข้อความว่างเปล่าได้")
@@ -92,6 +115,8 @@ def predict_multiple(request: MultipleSentimentRequest):
                             detail="มีข้อความที่ยาวเกินไป. ความยาวสูงสุดคือ 400 ตัวอักษร.")
     labels = ["เชิงลบ 😡", "เป็นกลาง 😐", "เชิงบวก 😄"]
     result = []
+
+    # Predict sentiment for each text
     for text in texts_to_process:
         sentiment_idx, prob = predict_sentiment(text)
         
@@ -109,6 +134,9 @@ def predict_multiple(request: MultipleSentimentRequest):
 
 @router.post("/predict_file")
 async def predict_file(file: UploadFile = File(...)):    
+    """
+    Upload .txt or .csv file and get sentiment analysis for each line or row.
+    """
     try:
         texts = await extract_text_from_file(file)
     except ValueError as e:
@@ -124,6 +152,9 @@ async def predict_file(file: UploadFile = File(...)):
 
 @router.post("/youtube")
 def sentiment_from_youtube(data: YouTubeRequest):
+    """
+    Fetch comments from a YouTube video and predict sentiment for each comment.
+    """
     comments = fetch_comments(data.url, limit=250)
     if not comments:
         raise HTTPException(status_code=400, detail="ไม่พบความคิดเห็นหรือวิดีโอนี้ไม่สามารถเข้าถึงได้")

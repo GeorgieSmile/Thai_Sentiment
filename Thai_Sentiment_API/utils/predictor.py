@@ -42,7 +42,13 @@ def predict_sentiment(text):
         text (str): Input text in Thai.
         
     Returns:
-        str: Predicted sentiment label.
+        int: Predicted sentiment index (e.g. 0 = negative, 1 = neutral, 2 = positive).
+        np.ndarray: Probability distribution over sentiment classes, shape (1, num_classes).
+
+    Example:
+        >>> predict_sentiment("วันนี้อากาศดีมาก")
+        (2, array([[0.05, 0.10, 0.85]]))
+         
     """
     # Logistic Regression
     # model, vectorizer = load_model()

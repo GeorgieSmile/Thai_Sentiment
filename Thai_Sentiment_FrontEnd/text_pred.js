@@ -1,12 +1,17 @@
+// Get DOM Element
 const input_text = document.getElementById('input-text');
 const textForm = document.getElementById('sentiment-form');
 const resultContainer = document.getElementById('result-container');
 const result = document.getElementById('result');
 
+// Add event listener for form submission
 textForm.addEventListener('submit', async function(event) {
     event.preventDefault();
+
+    // Hide and clear old result
     resultContainer.classList.add('hidden');
     result.innerHTML = '';
+    // Get user input
     const text = input_text.value;
 
     try {
@@ -31,12 +36,14 @@ textForm.addEventListener('submit', async function(event) {
 });
         
 function displayResult(data){
+    // Color of each bar
     const colorMap = {
         "เชิงลบ 😡": "#ef4444",     
         "เป็นกลาง 😐": "#818cf8",   
         "เชิงบวก 😄": "#22c55e"     
     };
 
+    // Result
     let html = `
         <p><b>ข้อความ:</b> ${data.text}</p>
         <p><b>อารมณ์:</b> ${data.sentiment}</p>
@@ -45,6 +52,7 @@ function displayResult(data){
         <div class="confidence-bar-group">
         `;
 
+    // Probabilites Bar
     data.probabilities.forEach(p => {
         const pct = (p.probability * 100).toFixed(1);
         html += `
