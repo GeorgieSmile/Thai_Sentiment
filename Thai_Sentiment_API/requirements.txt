@@ -1,0 +1,9 @@
+fastapi
+uvicorn
+pydantic
+pandas
+python-multipart
+scikit-learn
+youtube-comment-downloader
+torch
+transformers

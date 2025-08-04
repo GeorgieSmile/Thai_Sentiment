@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Thai Sentiment Analysis</title>
+    <link rel="icon" type="image/x-icon" href="/images/favicon.ico">
+    <link rel="stylesheet" href="common.css">
+    <link rel="stylesheet" href="text_pred.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Thai Sentiment Analysis</h1>
+        <nav>
+            <ul>
+                <li><a href="index.html">วิเคราะห์ข้อความ</a></li>
+                <li><a href="file_predict.html">วิเคราะห์ไฟล์ข้อความ</a></li>
+                <li><a href="yt_pred.html">วิเคราะห์คอมเม้นต์ YouTube</a></li>
+                <li><a href="about.html">ข้อมูลเพิ่มเติม</a></li>
+            </ul>
+        </nav>
+        <form id="sentiment-form">
+            <textarea id="input-text" placeholder="กรุณาใส่ข้อความสำหรับวิเคราะห์อารมณ์..."></textarea><br>
+            <button type="submit">วิเคราะห์อารมณ์</button>
+        </form>
+        <div id="result-container" class="hidden">
+            <h2>ผลการวิเคราะห์</h2>
+            <div id="result"></div>
+        </div>
+    </div>
+    <script src="text_pred.js"></script>
+</body>
+</html>

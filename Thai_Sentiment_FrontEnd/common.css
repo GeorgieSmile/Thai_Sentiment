@@ -1,0 +1,75 @@
+/* common.css */
+body {
+  background: linear-gradient(120deg, #f9fafe 0%, #e0e7ff 100%);
+  min-height: 100vh;
+  margin: 0;
+  font-family: 'Segoe UI', Arial, Helvetica, sans-serif;
+}
+
+.container {
+  max-width: 1000px;
+  margin: 40px auto;
+  background: #fff;
+  border-radius: 18px;
+  box-shadow: 0 4px 24px rgba(0,0,0,0.08);
+  padding: 24px;
+}
+
+h1 {
+  font-weight: bold;
+  font-size: 2.2em;
+  color: #22223b;
+  text-align: center;
+  margin-top: 0;
+  margin-bottom: 24px;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+button[type="submit"] {
+  background: #6366f1;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  padding: 12px 0;
+  font-size: 1.1em;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+button[type="submit"]:hover {
+  background: #4f46e5;
+}
+
+.hidden {
+  display: none !important;
+}
+
+nav ul {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 24px 0;
+  display: flex;
+  justify-content: center;
+  gap: 18px;
+}
+
+nav ul li a {
+  text-decoration: none;
+  color: #6366f1;
+  font-weight: 500;
+  padding: 6px 14px;
+  border-radius: 6px;
+  transition: background 0.2s, color 0.2s;
+}
+
+nav ul li a:hover,
+nav ul li a:focus {
+  background: #e0e7ff;
+  color: #3730a3;
+}

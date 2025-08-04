@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Thai Sentiment Analysis</title>
+    <link rel="icon" type="image/x-icon" href="/images/favicon.ico">
+    <link rel="stylesheet" href="common.css">
+    <link rel="stylesheet" href="file_yt_pred.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Thai Sentiment Analysis</h1>
+        <nav>
+            <ul>
+                <li><a href="index.html">วิเคราะห์ข้อความ</a></li>
+                <li><a href="file_predict.html">วิเคราะห์ไฟล์ข้อความ</a></li>
+                <li><a href="yt_pred.html">วิเคราะห์คอมเม้นต์ YouTube</a></li>
+                <li><a href="about.html">ข้อมูลเพิ่มเติม</a></li>
+            </ul>
+        </nav>
+        
+        <form id="yt-form">
+            <input type="text" id="yt-url" placeholder="ใส่ลิงก์ YouTube เช่น https://www.youtube.com/watch?v=xxxxxx" required>
+            <button type="submit">วิเคราะห์คอมเม้นต์</button>
+        </form>
+        <div id="loading-indicator" class="hidden">
+            <div class="spinner"></div>
+            <span>กำลังประมวลผล โปรดรอสักครู่...</span>
+        </div>
+        <div id="file-metadata" class="hidden"></div>
+        <div id="file-result-summary" class="hidden"></div>
+        <div id="chartWrapper" class="hidden">
+        <canvas id="sentimentChart"></canvas>
+        <canvas id="confidenceChart"></canvas>
+        </div>
+        <div id="export-buttons" class="hidden">
+        <button id="export-csv-btn" class="export-btn">📄 ดาวน์โหลดผลลัพธ์ (.csv)</button>
+        <button id="export-chart-btn" class="export-btn">📊 ดาวน์โหลดกราฟ (.png)</button>
+        </div>
+        <div id="filter-container" class="hidden">
+        <h3>ผลการค้นหา</h3>
+        <div class="filter-controls">
+            <div class="filter-group">
+            <label for="sentiment-filter">อารมณ์</label>
+            <select id="sentiment-filter">
+                <option value="all">ทั้งหมด</option>
+                <option value="เชิงลบ 😡">เชิงลบ 😡</option>
+                <option value="เป็นกลาง 😐">เป็นกลาง 😐</option>
+                <option value="เชิงบวก 😄">เชิงบวก 😄</option>
+            </select>
+            </div>
+            <div class="filter-group">
+            <label for="keyword-filter">ค้นหา</label>
+            <input type="text" id="keyword-filter" placeholder="ค้นหาข้อความ ... ">
+            </div>
+            <div class="filter-group">
+            <label for="confidence-filter">
+                ความมั่นใจขั้นต่ำ: <span id="confidence-value">0%</span>
+            </label>
+            <input type="range" id="confidence-filter" min="0" max="100" value="0">
+            </div>
+        </div>
+        </div>
+        <div id="result-container" class="hidden">
+        <h2>ผลการวิเคราะห์</h2>
+        <div id="result"></div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="yt_pred.js"></script>
+
+</body>
+</html>

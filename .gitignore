@@ -1,0 +1,4 @@
+.venv/
+__pycache__/
+*.py[cod]
+Thai_Sentiment_API/models/fined_tuned_model/

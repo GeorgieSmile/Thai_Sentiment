@@ -1,0 +1,70 @@
+/* text_pred.css */
+textarea {
+  resize: vertical;
+  min-height: 80px;
+  font-size: 1em;
+  padding: 12px;
+  border-radius: 8px;
+  border: 1px solid #cdd2e0;
+  outline: none;
+  transition: border 0.2s;
+}
+
+textarea:focus {
+  border: 1.5px solid #6366f1;
+}
+
+#result-container {
+  margin-top: 28px;
+  padding: 18px;
+  border-radius: 10px;
+  background: #f1f5ff;
+  box-shadow: 0 2px 8px rgba(99,102,241,0.06);
+}
+
+#result-container h2 {
+  margin-top: 0;
+  color: #3730a3;
+}
+
+#result {
+  font-size: 1.1em;
+  color: #22223b;
+}
+
+/* Confidence bar styles */
+.confidence-bar-group {
+  margin: 10px 0 16px 0;
+}
+
+.bar-row {
+  display: flex;
+  align-items: center;
+  margin-bottom: 8px;
+}
+
+.bar-label {
+  flex: 0 0 120px;
+  font-size: 0.95em;
+}
+
+.bar {
+  flex: 1;
+  height: 16px;
+  background: #e5e7eb;
+  border-radius: 8px;
+  overflow: hidden;
+  margin: 0 12px;
+}
+
+.bar-fill {
+  height: 100%;
+  border-radius: 8px;
+  transition: width 0.4s;
+}
+
+.percent-label {
+  flex: 0 0 50px;
+  text-align: right;
+  font-weight: 500;
+}
