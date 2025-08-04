@@ -1,4 +1,13 @@
+# Ignore virtual environment
 .venv/
+
+# Ignore Python cache
 __pycache__/
 *.py[cod]
-Thai_Sentiment_API/models/fined_tuned_model/
+
+# Ignore all files in the model folder...
+Thai_Sentiment_API/models/fined_tuned_model/*
+
+# ...except allow the folder itself and a placeholder
+!Thai_Sentiment_API/models/fined_tuned_model/
+!Thai_Sentiment_API/models/fined_tuned_model/.gitkeep

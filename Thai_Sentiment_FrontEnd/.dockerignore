@@ -1,0 +1,9 @@
+# Git metadata
+.git
+.gitignore
+
+# IDE/editor dirs
+.vscode/
+.idea/
+
+

@@ -1,0 +1,17 @@
+# Python caches and bytecode
+__pycache__/
+*.pyc
+
+# Virtual environments
+.venv/
+
+# Git metadata
+.git
+.gitignore
+
+# IDE/editor dirs
+.vscode/
+.idea/
+
+# Logs and temp
+*.log
