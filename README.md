@@ -21,6 +21,13 @@ A **Thai‑language sentiment analysis web application** consisting of a FastAPI
 
 ---
 
+## 🧠 Model & Training 
+Model: WangchanBERTa (wangchanberta-base-att-spm-uncased), fine-tuned for 3-class Thai sentiment classification (adapted from the original 4-class Wisesight dataset).
+Dataset: ~25,000 Thai sentences
+Result: 78% accuracy on the test set
+
+---
+
 ## 🚀 Quick Start (with Docker‑Compose)
 
 ```bash
