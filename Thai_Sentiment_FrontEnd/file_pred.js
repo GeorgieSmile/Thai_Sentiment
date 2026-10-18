@@ -57,7 +57,7 @@ fileForm.addEventListener('submit', async (event) =>{
 
     } catch (error) {
         resultContainer.classList.remove('hidden');
-        resultDiv.innerHTML = `<b style="color: red;">เกิดข้อผิดพลาด: ${error.message}</b>`;
+        resultDiv.innerHTML = `<b style="color: red;">เกิดข้อผิดพลาด: ${escapeHtml(error.message)}</b>`;
     } finally{
         loadingIndicator.classList.add('hidden');
         submitBtn.disabled = false;
@@ -303,8 +303,8 @@ function renderTable() {
             const pct = (probObj.probability * 100).toFixed(1) + '%';
             table += `
                 <tr>
-                    <td>${item.text}</td>
-                    <td>${item.sentiment}</td>
+                    <td>${escapeHtml(item.text)}</td>
+                    <td>${escapeHtml(item.sentiment)}</td>
                     <td>${pct}</td>
                 </tr>
             `;

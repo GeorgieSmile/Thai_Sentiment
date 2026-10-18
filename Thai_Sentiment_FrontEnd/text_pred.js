@@ -31,7 +31,7 @@ textForm.addEventListener('submit', async function(event) {
 
     } catch (error) {
         resultContainer.classList.remove('hidden');
-        result.innerHTML = `<b style="color: red;">เกิดข้อผิดพลาด: ${error.message}</b>`;
+        result.innerHTML = `<b style="color: red;">เกิดข้อผิดพลาด: ${escapeHtml(error.message)}</b>`;
     }
 });
         
@@ -45,10 +45,10 @@ function displayResult(data){
 
     // Result
     let html = `
-        <p><b>ข้อความ:</b> ${data.text}</p>
-        <p><b>อารมณ์:</b> ${data.sentiment}</p>
+        <p><b>ข้อความ:</b> ${escapeHtml(data.text)}</p>
+        <p><b>อารมณ์:</b> ${escapeHtml(data.sentiment)}</p>
         <hr>
-        <p>${data.summary}</p>
+        <p>${escapeHtml(data.summary)}</p>
         <div class="confidence-bar-group">
         `;
 
@@ -57,7 +57,7 @@ function displayResult(data){
         const pct = (p.probability * 100).toFixed(1);
         html += `
         <div class="bar-row">
-            <div class="bar-label">${p.label}</div>
+            <div class="bar-label">${escapeHtml(p.label)}</div>
             <div class="bar">
                 <div class="bar-fill" style="width: ${pct}%; background: ${colorMap[p.label]};"></div>
             </div>
